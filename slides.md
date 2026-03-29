@@ -1130,9 +1130,15 @@ class: text-center
   </div>
 </div>
 
-<div class="flex items-center justify-center gap-8 mt-6">
-  <img src="./microsoft-logo.jpg" alt="Microsoft" class="h-12" />
-  <img src="./logo-color-square-512.jpg" alt="CodeSeoul" class="h-12" />
+<div class="flex items-center justify-center gap-12 mt-6">
+  <div class="flex flex-col items-center gap-1">
+    <div class="text-xs opacity-50">Hosted by</div>
+    <img src="./microsoft-logo.jpg" alt="Microsoft" class="h-12" />
+  </div>
+  <div class="flex flex-col items-center gap-1">
+    <div class="text-xs opacity-50">Run by</div>
+    <img src="./logo-color-square-512.jpg" alt="CodeSeoul" class="h-12" />
+  </div>
 </div>
 
 <div class="text-sm opacity-60 mt-4">Slides made with <a href="https://sli.dev">Slidev</a></div>
