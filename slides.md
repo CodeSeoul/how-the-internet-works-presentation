@@ -93,20 +93,22 @@ Let's start with what you can already see.
 
 You've typed `codeseoul.org` into the address bar and hit Enter. The browser immediately starts working:
 
+<div class="grid grid-cols-3 gap-3 mt-4">
 <v-clicks>
-
-1. **Checks its cache** — "Have I been to this site recently? Do I already know the answer?"
-2. **Builds an HTTP request** — a structured message asking the server for a page
-3. **But first... it needs to find the server** — it only has a name, not an address
-
+  <NumberCard :number="1" title="Checks its cache" color="green">
+    "Have I been to this site recently? Do I already know the answer?"
+  </NumberCard>
+  <NumberCard :number="2" title="Builds an HTTP request" color="blue">
+    A structured message asking the server for a page
+  </NumberCard>
+  <NumberCard :number="3" title="But first... find the server" color="amber">
+    It only has a name, not an address
+  </NumberCard>
 </v-clicks>
-
-<br>
+</div>
 
 <v-click>
-
-Let's look at each of these steps, starting with the message itself.
-
+<TipBox>Let's look at each of these steps, starting with the message itself.</TipBox>
 </v-click>
 
 ---
@@ -179,15 +181,13 @@ Content-Length: 4523
 
 How you tell the server **what you want to do**.
 
-<br>
-
-| Method | Purpose | Example |
-|--------|---------|---------|
-| **GET** | Retrieve data | Load a webpage |
-| **POST** | Submit/create data | Submit a signup form |
-| **PUT** | Update (replace) data | Replace your profile |
-| **PATCH** | Update (partial) data | Change just your email |
-| **DELETE** | Remove data | Delete a comment |
+<div class="grid grid-cols-3 gap-3 mt-4">
+  <InfoCard title="GET" color="green" icon="📥">Retrieve data — Load a webpage</InfoCard>
+  <InfoCard title="POST" color="blue" icon="📤">Submit/create data — Submit a signup form</InfoCard>
+  <InfoCard title="PUT" color="amber" icon="🔄">Update (replace) data — Replace your profile</InfoCard>
+  <InfoCard title="PATCH" color="purple" icon="✏️">Update (partial) data — Change just your email</InfoCard>
+  <InfoCard title="DELETE" color="red" icon="🗑️">Remove data — Delete a comment</InfoCard>
+</div>
 
 ---
 
@@ -195,23 +195,19 @@ How you tell the server **what you want to do**.
 
 How the server tells you **what happened**.
 
-<br>
-
-| Code | Meaning | |
-|------|---------|--|
-| **200** | OK — here's what you asked for | |
-| **301** | Moved permanently — go here instead | |
-| **403** | Forbidden — you're not allowed | |
-| **404** | Not found — doesn't exist | |
-| **500** | Server error — something broke on our end | |
-| **418** | I'm a teapot | |
-
-<br>
+<div class="grid grid-cols-3 gap-3 mt-4">
+  <InfoCard title="200" color="green" icon="✅">OK — here's what you asked for</InfoCard>
+  <InfoCard title="301" color="blue" icon="↪️">Moved permanently — go here instead</InfoCard>
+  <InfoCard title="403" color="amber" icon="🚫">Forbidden — you're not allowed</InfoCard>
+  <InfoCard title="404" color="red" icon="❓">Not found — doesn't exist</InfoCard>
+  <InfoCard title="500" color="red" icon="💥">Server error — something broke on our end</InfoCard>
+  <InfoCard title="418" color="purple" icon="🫖">I'm a teapot</InfoCard>
+</div>
 
 <v-click>
-
-> **418 I'm a Teapot** is a real HTTP status code from an April Fools' RFC. It means the server refuses to brew coffee because it is, in fact, a teapot.
-
+<TipBox variant="fun">
+<b>418 I'm a Teapot</b> is a real HTTP status code from an April Fools' RFC. It means the server refuses to brew coffee because it is, in fact, a teapot.
+</TipBox>
 </v-click>
 
 ---
@@ -220,22 +216,18 @@ How the server tells you **what happened**.
 
 **HTTPS** wraps HTTP in **TLS** (Transport Layer Security) encryption.
 
-<div class="grid grid-cols-2 gap-6 mt-6">
-  <div class="bg-red-500/10 border border-red-500/50 rounded-xl p-5">
-    <div class="text-red-400 font-bold mb-2">Without HTTPS</div>
+<CompareBox leftTitle="Without HTTPS" rightTitle="With HTTPS" leftIcon="🔓" rightIcon="🔒" leftColor="red" rightColor="green" class="mt-6">
+  <template #left>
     <div class="text-center text-2xl my-3"><code>"password123"</code></div>
     <div class="text-center text-sm opacity-70">Anyone on the network can read this!</div>
-  </div>
-  <div class="bg-green-500/10 border border-green-500/50 rounded-xl p-5">
-    <div class="text-green-400 font-bold mb-2">With HTTPS</div>
+  </template>
+  <template #right>
     <div class="text-center text-2xl my-3"><code>"k8$#f!x@..."</code></div>
     <div class="text-center text-sm opacity-70">Encrypted — completely unreadable!</div>
-  </div>
-</div>
+  </template>
+</CompareBox>
 
-<br>
-
-> Always check for the lock icon in your browser! No lock = your data is visible to anyone on the network.
+<TipBox variant="warning">Always check for the lock icon in your browser! No lock = your data is visible to anyone on the network.</TipBox>
 
 ---
 
@@ -259,9 +251,7 @@ sequenceDiagram
 ```
 
 <v-click>
-
-This all happens in milliseconds, before any webpage content is sent.
-
+<TipBox>This all happens in milliseconds, before any webpage content is sent.</TipBox>
 </v-click>
 
 ---
@@ -365,40 +355,34 @@ That full lookup doesn't happen every time. Answers get **cached** at multiple l
 
 <br>
 
+<div class="grid grid-cols-2 gap-3 mt-2">
 <v-clicks>
-
-1. **Browser cache** — Chrome remembers the answer for minutes
-2. **Operating system cache** — your computer keeps its own copy
-3. **ISP resolver cache** — your ISP remembers answers for thousands of users
-4. **Only if all caches miss** does the full Root → TLD → Authoritative lookup happen
-
+  <NumberCard :number="1" title="Browser cache" color="green">Chrome remembers the answer for minutes</NumberCard>
+  <NumberCard :number="2" title="Operating system cache" color="blue">Your computer keeps its own copy</NumberCard>
+  <NumberCard :number="3" title="ISP resolver cache" color="amber">Your ISP remembers answers for thousands of users</NumberCard>
+  <NumberCard :number="4" title="Full lookup" color="red">Only if all caches miss does Root → TLD → Authoritative happen</NumberCard>
 </v-clicks>
+</div>
 
 <br>
 
 <v-click>
-
-> This is why the first visit to a website can feel slower than the second — by the second time, the answer is already cached.
-
+<TipBox>This is why the first visit to a website can feel slower than the second — by the second time, the answer is already cached.</TipBox>
 </v-click>
 
 ---
 
 # Common DNS Record Types
 
-| Type | Purpose | Example |
-|------|---------|---------|
-| **A** | Domain → IPv4 address | `codeseoul.org → 185.199.108.153` |
-| **AAAA** | Domain → IPv6 address | `google.com → 2607:f8b0:4004:...` |
-| **CNAME** | Domain → another domain (alias) | `www.example.com → example.com` |
-| **MX** | Mail server for the domain | `codeseoul.org → mail.google.com` |
-
-<br>
+<div class="grid grid-cols-2 gap-3 mt-2">
+  <InfoCard title="A" color="green" subtitle="Domain → IPv4 address"><code>codeseoul.org → 185.199.108.153</code></InfoCard>
+  <InfoCard title="AAAA" color="blue" subtitle="Domain → IPv6 address"><code>google.com → 2607:f8b0:4004:...</code></InfoCard>
+  <InfoCard title="CNAME" color="amber" subtitle="Domain → another domain (alias)"><code>www.example.com → example.com</code></InfoCard>
+  <InfoCard title="MX" color="purple" subtitle="Mail server for the domain"><code>codeseoul.org → mail.google.com</code></InfoCard>
+</div>
 
 <v-click>
-
-> You can look these up yourself with `dig codeseoul.org MX` or `nslookup -type=MX codeseoul.org`
-
+<TipBox icon="🔍">You can look these up yourself with <code>dig codeseoul.org MX</code> or <code>nslookup -type=MX codeseoul.org</code></TipBox>
 </v-click>
 
 ---
@@ -521,35 +505,43 @@ This happens every time you open a web page — in about **~1ms** on a local net
 
 # TCP vs UDP — The Analogy
 
-<br>
-
-> **TCP** is like a **phone call** — you establish a connection, confirm the other person is there, and have a back-and-forth conversation.
-
-<br>
-
-> **UDP** is like **shouting across a room** — fast, but you might miss something.
-
-<br>
+<CompareBox leftTitle="TCP" rightTitle="UDP" leftIcon="📞" rightIcon="📢" leftColor="blue" rightColor="amber" class="mt-4">
+  <template #left>
+    <div class="text-sm">Like a <b>phone call</b> — you establish a connection, confirm the other person is there, and have a back-and-forth conversation.</div>
+  </template>
+  <template #right>
+    <div class="text-sm">Like <b>shouting across a room</b> — fast, but you might miss something.</div>
+  </template>
+</CompareBox>
 
 <v-click>
-
-Which one would you use for a bank transfer? For a live video call?
-
+<TipBox icon="🤔" color="purple">Which one would you use for a bank transfer? For a live video call?</TipBox>
 </v-click>
 
 ---
 
 # TCP vs UDP — Comparison
 
-<br>
-
-| | TCP | UDP |
-|---|-----|-----|
-| **Connection** | Handshake first | No handshake |
-| **Reliability** | Guaranteed delivery | Best effort |
-| **Speed** | Slower | Faster |
-| **Order** | Guaranteed | Not guaranteed |
-| **Example** | Loading this webpage | Watching a YouTube stream |
+<CompareBox leftTitle="TCP" rightTitle="UDP" leftColor="blue" rightColor="amber" class="mt-4">
+  <template #left>
+    <div class="text-sm space-y-2">
+      <div><b>Connection:</b> Handshake first</div>
+      <div><b>Reliability:</b> Guaranteed delivery</div>
+      <div><b>Speed:</b> Slower</div>
+      <div><b>Order:</b> Guaranteed</div>
+      <div><b>Example:</b> Loading this webpage</div>
+    </div>
+  </template>
+  <template #right>
+    <div class="text-sm space-y-2">
+      <div><b>Connection:</b> No handshake</div>
+      <div><b>Reliability:</b> Best effort</div>
+      <div><b>Speed:</b> Faster</div>
+      <div><b>Order:</b> Not guaranteed</div>
+      <div><b>Example:</b> Watching a YouTube stream</div>
+    </div>
+  </template>
+</CompareBox>
 
 ---
 layout: section
@@ -714,26 +706,10 @@ Packets & routing — breaking the letter into postcards.
 You don't send a whole file at once — it gets broken into **packets**.
 
 <div class="grid grid-cols-4 gap-3 mt-8">
-  <div class="bg-blue-500/20 border border-blue-500 rounded-lg p-3 text-center text-sm">
-    <div class="font-bold text-blue-300">Packet 1</div>
-    <div class="text-xs mt-1 opacity-80">"Hello, "</div>
-    <div class="text-xs opacity-60">Seq: 1 | From: A | To: B</div>
-  </div>
-  <div class="bg-green-500/20 border border-green-500 rounded-lg p-3 text-center text-sm">
-    <div class="font-bold text-green-300">Packet 2</div>
-    <div class="text-xs mt-1 opacity-80">"CodeSeoul"</div>
-    <div class="text-xs opacity-60">Seq: 2 | From: A | To: B</div>
-  </div>
-  <div class="bg-purple-500/20 border border-purple-500 rounded-lg p-3 text-center text-sm">
-    <div class="font-bold text-purple-300">Packet 3</div>
-    <div class="text-xs mt-1 opacity-80">"! How's "</div>
-    <div class="text-xs opacity-60">Seq: 3 | From: A | To: B</div>
-  </div>
-  <div class="bg-amber-500/20 border border-amber-500 rounded-lg p-3 text-center text-sm">
-    <div class="font-bold text-amber-300">Packet 4</div>
-    <div class="text-xs mt-1 opacity-80">"it going?"</div>
-    <div class="text-xs opacity-60">Seq: 4 | From: A | To: B</div>
-  </div>
+  <InfoCard title="Packet 1" color="blue" subtitle="Seq: 1 | From: A | To: B">"Hello, "</InfoCard>
+  <InfoCard title="Packet 2" color="green" subtitle="Seq: 2 | From: A | To: B">"CodeSeoul"</InfoCard>
+  <InfoCard title="Packet 3" color="purple" subtitle="Seq: 3 | From: A | To: B">"! How's "</InfoCard>
+  <InfoCard title="Packet 4" color="amber" subtitle="Seq: 4 | From: A | To: B">"it going?"</InfoCard>
 </div>
 
 <v-clicks>
@@ -809,9 +785,7 @@ Not all requests are equal. Several things add up to make a page feel sluggish.
 <br>
 
 <v-click>
-
-> This is why a Korean website loads instantly in Seoul but feels slow from Europe — and vice versa.
-
+<TipBox icon="🌏">This is why a Korean website loads instantly in Seoul but feels slow from Europe — and vice versa.</TipBox>
 </v-click>
 
 ---
@@ -848,9 +822,7 @@ The Internet is a **global network of networks** — billions of devices connect
 <br>
 
 <v-click>
-
-> "The Internet is a network of networks. That's it. That's the tweet."
-
+<TipBox variant="info" icon="🌐">"The Internet is a network of networks. That's it. That's the tweet."</TipBox>
 </v-click>
 
 ---
@@ -873,9 +845,7 @@ The backbone of the global Internet lives on the ocean floor.
 <br>
 
 <v-click>
-
-> Explore the map yourself: [submarinecablemap.com](https://www.submarinecablemap.com/)
-
+<TipBox icon="🗺️" color="cyan">Explore the map yourself: <a href="https://www.submarinecablemap.com/">submarinecablemap.com</a></TipBox>
 </v-click>
 
 ---
@@ -886,20 +856,16 @@ How data gets from the backbone to **your device**.
 
 <br>
 
-| Connection Type | Speed | How It Works |
-|----------------|-------|-------------|
-| **Fiber (FTTH)** | Fastest | Light pulses through glass — the gold standard |
-| **Coaxial cable** | Fast | Shared cable TV infrastructure |
-| **DSL (copper)** | Slow | Old phone lines — being phased out |
-| **Wireless (4G/5G)** | Varies | Radio waves to cell towers |
-| **Satellite** | High latency | For remote areas — Starlink etc. |
-
-<br>
+<div class="grid grid-cols-3 gap-3 mt-2">
+  <InfoCard title="Fiber (FTTH)" color="green" icon="💎" subtitle="Fastest">Light pulses through glass — the gold standard</InfoCard>
+  <InfoCard title="Coaxial cable" color="blue" icon="📺" subtitle="Fast">Shared cable TV infrastructure</InfoCard>
+  <InfoCard title="DSL (copper)" color="amber" icon="📞" subtitle="Slow">Old phone lines — being phased out</InfoCard>
+  <InfoCard title="Wireless (4G/5G)" color="purple" icon="📡" subtitle="Varies">Radio waves to cell towers</InfoCard>
+  <InfoCard title="Satellite" color="cyan" icon="🛰️" subtitle="High latency">For remote areas — Starlink etc.</InfoCard>
+</div>
 
 <v-click>
-
-> **South Korea** averages ~200 Mbps. Most of Seoul is connected via FTTH (Fiber to the Home).
-
+<TipBox icon="🇰🇷"><b>South Korea</b> averages ~200 Mbps. Most of Seoul is connected via FTTH (Fiber to the Home).</TipBox>
 </v-click>
 
 ---
@@ -942,13 +908,13 @@ flowchart TD
 
 # Key Physical Components
 
-| Component | What It Does | Example |
-|-----------|-------------|---------|
-| **Modem** | Converts signals between your network and ISP | Your home modem |
-| **Router** | Forwards packets between networks | Home WiFi router, Cisco enterprise |
-| **Switch** | Connects devices within a local network | Office network switch |
-| **Server** | Hosts content and services | A machine in a data center |
-| **IXP** | Where different networks exchange traffic | KINX in Seoul |
+<div class="grid grid-cols-3 gap-3 mt-2">
+  <InfoCard title="Modem" color="blue" icon="📶">Converts signals between your network and ISP</InfoCard>
+  <InfoCard title="Router" color="amber" icon="🔀">Forwards packets between networks</InfoCard>
+  <InfoCard title="Switch" color="green" icon="🔌">Connects devices within a local network</InfoCard>
+  <InfoCard title="Server" color="purple" icon="🖥️">Hosts content and services</InfoCard>
+  <InfoCard title="IXP" color="cyan" icon="🏢">Where different networks exchange traffic</InfoCard>
+</div>
 
 ---
 layout: section
@@ -994,25 +960,23 @@ You now understand every layer.
 
 What happens when you type `codeseoul.org` and press Enter?
 
+<div class="grid grid-cols-5 gap-2 mt-2">
 <v-clicks>
-
-1. **Browser checks cache** — "Have I been here recently?"
-2. **DNS lookup** — `codeseoul.org` → `185.199.108.153`
-3. **TCP handshake** — SYN → SYN-ACK → ACK (establish connection)
-4. **TLS handshake** — Exchange certificates, establish encryption
-5. **HTTP request** — `GET / HTTP/1.1` (send the request)
-6. **Server processes** — Server finds the page, builds the HTML
-7. **HTTP response** — Server sends back HTML, CSS, JS, images
-8. **Browser renders** — Parse HTML → Build DOM → Apply CSS → Execute JS
-9. **Sub-requests** — Browser fetches images, fonts, scripts (repeat steps 2-8)
-10. **Page complete!** — You see the CodeSeoul website
-
+  <NumberCard :number="1" title="Cache check" color="green">"Been here recently?"</NumberCard>
+  <NumberCard :number="2" title="DNS lookup" color="amber">codeseoul.org → IP</NumberCard>
+  <NumberCard :number="3" title="TCP handshake" color="blue">SYN → SYN-ACK → ACK</NumberCard>
+  <NumberCard :number="4" title="TLS handshake" color="purple">Certificates + encryption</NumberCard>
+  <NumberCard :number="5" title="HTTP request" color="cyan">GET / HTTP/1.1</NumberCard>
+  <NumberCard :number="6" title="Server processes" color="green">Find page, build HTML</NumberCard>
+  <NumberCard :number="7" title="HTTP response" color="amber">HTML, CSS, JS, images</NumberCard>
+  <NumberCard :number="8" title="Browser renders" color="blue">DOM → CSS → JS</NumberCard>
+  <NumberCard :number="9" title="Sub-requests" color="purple">Fonts, images, scripts</NumberCard>
+  <NumberCard :number="10" title="Page complete!" color="cyan">You see the website!</NumberCard>
 </v-clicks>
+</div>
 
 <v-click>
-
-**Total time: ~200-500ms** for a well-optimized site
-
+<TipBox icon="⚡"><b>Total time: ~200-500ms</b> for a well-optimized site</TipBox>
 </v-click>
 
 ---
@@ -1049,43 +1013,51 @@ analytics.js      200     script     3.2 KB    89 ms
 
 # Key Takeaways
 
+<div class="grid grid-cols-2 gap-3 mt-2">
 <v-clicks>
-
-The Internet is a **network of networks** using agreed-upon protocols
-
-Data travels through **physical cables** (mostly undersea fiber)
-
-**IP addresses** identify devices; **DNS** translates names to IPs
-
-Data is split into **packets** that can take different routes
-
-**TCP** ensures reliable delivery; **UDP** prioritizes speed
-
-**HTTP** is how browsers talk to servers; **HTTPS** adds encryption
-
-A single page load involves **many steps** happening in milliseconds
-
+  <InfoCard title="Network of Networks" color="blue" icon="🌐">The Internet uses agreed-upon protocols to connect everything</InfoCard>
+  <InfoCard title="Physical Cables" color="gray" icon="🔌">Data travels through undersea fiber — not magic</InfoCard>
+  <InfoCard title="IP + DNS" color="amber" icon="📍">IP addresses identify devices; DNS translates names to IPs</InfoCard>
+  <InfoCard title="Packets" color="cyan" icon="📦">Data is split into packets that can take different routes</InfoCard>
+  <InfoCard title="TCP & UDP" color="red" icon="🤝">TCP ensures reliable delivery; UDP prioritizes speed</InfoCard>
+  <InfoCard title="HTTP & HTTPS" color="green" icon="🔒">How browsers talk to servers — HTTPS adds encryption</InfoCard>
 </v-clicks>
+</div>
+
+<v-click>
+<TipBox icon="⚡">A single page load involves <b>many steps</b> happening in milliseconds</TipBox>
+</v-click>
 
 ---
 
 # Want to Explore More?
 
+<div class="grid grid-cols-2 gap-8 mt-4">
+<div>
+<SectionBar color="cyan">Tools to try</SectionBar>
+
 <v-clicks>
 
-**Tools to try:**
 - `nslookup` / `dig` — DNS lookups
 - `traceroute` / `tracert` — Trace packet routes
 - `ping` — Test connectivity
 - Browser DevTools (F12) — Watch network traffic
 - Wireshark — Deep packet inspection
 
-**Resources:**
+</v-clicks>
+</div>
+<div>
+<SectionBar color="amber">Resources</SectionBar>
+
+<v-clicks>
+
 - [How DNS Works (comic)](https://howdns.works/)
 - [Submarine Cable Map](https://www.submarinecablemap.com/)
 - [MDN Web Docs: HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP)
 
 </v-clicks>
+</div>
+</div>
 
 ---
 layout: center
