@@ -1092,16 +1092,47 @@ layout: center
 class: text-center
 ---
 
+<div class="flex items-center gap-12">
+
+<!-- Left pane -->
+<div class="flex-1 flex flex-col items-center text-center">
+
 # Thank You!
 
-Questions?
+<div class="text-xl font-bold mt-2">Bryan "Beege" Berry</div>
+<a href="https://linkedin.com/in/thebeege" class="text-sm opacity-70 !text-blue-300">linkedin.com/in/thebeege</a>
 
-<br>
-
-**CodeSeoul** — [codeseoul.org](https://codeseoul.org)
-
-<div class="pt-8 text-sm opacity-60">
-
-Slides made with [Slidev](https://sli.dev)
+<div class="mt-6 text-base opacity-90">CodeSeoul Workshop — How Does the Internet Work?</div>
+<div class="text-sm opacity-60">April 4, 2026</div>
 
 </div>
+
+<!-- Right pane -->
+<div class="flex flex-col items-center text-center gap-4">
+  <div class="text-lg font-semibold">Join us on Discord!</div>
+  <img src="./discord-qr-code.png" alt="QR code for Discord server" class="h-40 rounded-lg" />
+</div>
+
+</div>
+
+<div class="flex gap-4 mt-8">
+  <div class="flex-1 bg-white/10 rounded-lg px-4 py-3 text-sm flex flex-col items-center text-center gap-1">
+    <div class="text-xl">🎉</div>
+    <span>You made it to the end!</span>
+  </div>
+  <div class="flex-1 bg-white/10 rounded-lg px-4 py-3 text-sm flex flex-col items-center text-center gap-1">
+    <div class="text-xl">🍕</div>
+    <span>Food after — everyone welcome!</span>
+  </div>
+  <div class="flex-1 bg-white/10 rounded-lg px-4 py-3 text-sm flex flex-col items-center text-center gap-1">
+    <div class="text-xl">💬</div>
+    <span>Recording, code & slides in Discord</span>
+  </div>
+</div>
+
+<div class="flex items-center justify-center gap-8 mt-6">
+  <img src="./microsoft-logo.jpg" alt="Microsoft" class="h-12" />
+  <img src="./logo-color-square-512.jpg" alt="CodeSeoul" class="h-12" />
+</div>
+
+<div class="text-sm opacity-60 mt-4">Slides made with <a href="https://sli.dev">Slidev</a></div>
