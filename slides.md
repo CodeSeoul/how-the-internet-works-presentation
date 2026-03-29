@@ -103,41 +103,75 @@ layout: section
 
 ---
 
-# It's Cables All the Way Down
+# Undersea Cables
 
-<div class="grid grid-cols-2 gap-4">
-<div>
+The backbone of the global Internet lives on the ocean floor.
 
-### Undersea Cables
+<br>
+
+<v-clicks>
+
 - ~550 active submarine cables worldwide
 - Carry **99%** of intercontinental data
 - Up to 25,000 km long
-- Fiber optic, diameter of a garden hose
+- Fiber optic, about the diameter of a garden hose
 
-### Last Mile
-- Fiber optic (FTTH)
-- Coaxial cable (cable internet)
-- Copper (DSL — the old way)
-- Wireless (4G/5G, WiFi, satellite)
+</v-clicks>
 
-</div>
-<div>
+<br>
+
+<v-click>
+
+> 🗺️ Explore the map yourself: [submarinecablemap.com](https://www.submarinecablemap.com/)
+
+</v-click>
+
+---
+
+# The Last Mile
+
+How data gets from the backbone to **your device**.
+
+<br>
+
+| Connection Type | Speed | How It Works |
+|----------------|-------|-------------|
+| **Fiber (FTTH)** | Fastest 🚀 | Light pulses through glass — the gold standard |
+| **Coaxial cable** | Fast | Shared cable TV infrastructure |
+| **DSL (copper)** | Slow | Old phone lines — being phased out |
+| **Wireless (4G/5G)** | Varies | Radio waves to cell towers |
+| **Satellite** | High latency | For remote areas — Starlink etc. |
+
+<br>
+
+<v-click>
+
+> 🇰🇷 **South Korea** averages ~200 Mbps. Most of Seoul is connected via FTTH (Fiber to the Home).
+
+</v-click>
+
+---
+
+# How Networks Connect
+
+The Internet is networks connected to networks, all the way up.
 
 ```
                     🌐
               ╱      |      ╲
-         IXP ——— IXP ——— IXP
-        ╱   ╲     |     ╱   ╲
-      ISP   ISP  ISP  ISP   ISP
-       |     |    |    |      |
+         IXP ——— IXP ——— IXP          Internet Exchange Points
+        ╱   ╲     |     ╱   ╲         where big networks meet
+      ISP   ISP  ISP  ISP   ISP       Internet Service Providers
+       |     |    |    |      |        deliver to end users
       🏠    🏢   🏠   📱    🏠
 ```
 
-**IXP** = Internet Exchange Point
-**ISP** = Internet Service Provider
+<v-clicks>
 
-</div>
-</div>
+- **IXP** (Internet Exchange Point) — where networks swap traffic directly, e.g. **KINX in Seoul** 🇰🇷
+- **ISP** (Internet Service Provider) — KT, SKT, LG U+ connect you to the IXPs
+
+</v-clicks>
 
 ---
 
@@ -151,14 +185,6 @@ layout: section
 | **Server** | Hosts content and services | A machine in a data center |
 | **IXP** | Where different networks exchange traffic | KINX in Seoul 🇰🇷 |
 
-<v-click>
-
-<br>
-
-> 🇰🇷 **Fun fact:** South Korea has some of the world's fastest internet, averaging ~200 Mbps. Most of Seoul is connected via FTTH (Fiber to the Home).
-
-</v-click>
-
 ---
 layout: section
 ---
@@ -168,48 +194,54 @@ layout: section
 
 ---
 
-# Every Device Gets an Address
+# IPv4 — The Original Address System
 
 An **IP address** is a unique identifier for a device on a network — like a postal address.
 
-<div class="grid grid-cols-2 gap-8 mt-4">
-<div>
+<br>
 
-### IPv4
 ```
 192.168.1.1
 ```
-- 4 groups of numbers (0–255)
-- ~4.3 billion possible addresses
-- **We ran out!** 😱
-
-</div>
-<div>
-
-### IPv6
-```
-2001:0db8:85a3:0000:0000:8a2e:0370:7334
-```
-- 8 groups of hex numbers
-- 340 undecillion addresses
-- That's 3.4 × 10³⁸
-
-</div>
-</div>
-
-<v-click>
 
 <br>
 
-### Public vs Private IPs
+<v-clicks>
 
-Your home router has **one public IP** from your ISP. Devices inside your home get **private IPs** (like `192.168.x.x`). Your router uses **NAT** (Network Address Translation) to map between them.
+- 4 groups of numbers, each 0–255
+- ~4.3 billion possible addresses
+- **We ran out!** 😱 (officially exhausted in 2011)
 
-</v-click>
+</v-clicks>
 
 ---
 
-# How NAT Works
+# IPv6 — The New Address System
+
+Designed to solve the address shortage — with room to spare.
+
+<br>
+
+```
+2001:0db8:85a3:0000:0000:8a2e:0370:7334
+```
+
+<br>
+
+<v-clicks>
+
+- 8 groups of hexadecimal numbers
+- **340 undecillion** possible addresses (3.4 × 10³⁸)
+- That's enough to give every grain of sand on Earth its own IP address
+- Adoption is gradual — most systems still run both IPv4 and IPv6
+
+</v-clicks>
+
+---
+
+# Public vs Private IPs
+
+Your home has **one public IP** visible to the Internet. But inside, each device gets a **private IP**.
 
 ```
     Your Home Network                    The Internet
@@ -218,14 +250,30 @@ Your home router has **one public IP** from your ISP. Devices inside your home g
     │ 💻 192.168.1.3 │──► Router ──────►│  Web Server  │
     │ 🎮 192.168.1.4 │   Public IP:     │  93.184.216.34│
     └────────────────┘   203.0.113.5    └──────────────┘
-         Private IPs         ▲
-                             │
+         Private IPs
+```
+
+Your router uses **NAT** (Network Address Translation) to map between them.
+
+---
+
+# How NAT Works
+
+All your devices share **one public IP** — the router keeps track of who asked for what.
+
+```
                     NAT translates:
                     192.168.1.3:54321
                     ↔ 203.0.113.5:54321
 ```
 
-All your devices share **one public IP** — the router keeps track of which internal device made which request.
+<v-clicks>
+
+- 📱 Phone sends a request → router tags it with a unique port number
+- 🌐 Response comes back to that port → router forwards it to the right device
+- The outside world only ever sees **203.0.113.5** — your private IPs stay hidden
+
+</v-clicks>
 
 ---
 layout: section
@@ -240,13 +288,21 @@ layout: section
 
 **DNS** (Domain Name System) translates human-readable names into IP addresses.
 
+<br>
+
 ```
 codeseoul.org  →  DNS lookup  →  185.199.108.153
 ```
 
-<v-clicks>
+<br>
 
-### The DNS Hierarchy
+Without DNS, you'd have to type `185.199.108.153` into your browser every time.
+
+---
+
+# The DNS Hierarchy
+
+DNS is organized like a tree, starting from the root.
 
 ```
                     . (Root)
@@ -256,11 +312,27 @@ codeseoul.org  →  DNS lookup  →  185.199.108.153
          google    codeseoul   naver
 ```
 
-1. Your browser asks: "What's the IP for `codeseoul.org`?"
-2. **Recursive resolver** (usually your ISP) starts the hunt
-3. Asks **root server** → "Try the `.org` server"
-4. Asks **.org server** → "Try this nameserver for `codeseoul.org`"
-5. Asks **authoritative nameserver** → "Here's the IP: `185.199.108.153`"
+<v-clicks>
+
+- **Root servers** — 13 sets of servers that know where to find everything
+- **TLD servers** — manage `.com`, `.org`, `.kr`, etc.
+- **Authoritative servers** — have the final answer for a specific domain
+
+</v-clicks>
+
+---
+
+# How a DNS Lookup Works
+
+What happens when your browser asks "What's the IP for `codeseoul.org`?"
+
+<v-clicks>
+
+1. Browser checks its **local cache** — "Have I looked this up recently?"
+2. Asks the **recursive resolver** (usually your ISP) to find out
+3. Resolver asks a **root server** → "Try the `.org` server"
+4. Resolver asks the **.org server** → "Try this nameserver for `codeseoul.org`"
+5. Resolver asks the **authoritative nameserver** → "`185.199.108.153`"
 6. Result is **cached** so we don't repeat this every time
 
 </v-clicks>
@@ -287,9 +359,9 @@ codeseoul.org.    3600    IN    A    185.199.108.153
 # TTL = 3600 seconds (1 hour) — how long to cache this answer
 ```
 
-<v-click>
+---
 
-### Common DNS Record Types
+# Common DNS Record Types
 
 | Type | Purpose | Example |
 |------|---------|---------|
@@ -297,6 +369,12 @@ codeseoul.org.    3600    IN    A    185.199.108.153
 | **AAAA** | Domain → IPv6 address | `google.com → 2607:f8b0:4004:...` |
 | **CNAME** | Domain → another domain (alias) | `www.example.com → example.com` |
 | **MX** | Mail server for the domain | `codeseoul.org → mail.google.com` |
+
+<br>
+
+<v-click>
+
+> You can look these up yourself with `dig codeseoul.org MX` or `nslookup -type=MX codeseoul.org`
 
 </v-click>
 
@@ -367,11 +445,7 @@ Each router looks at the **destination IP** and decides: "Where should I send th
     └─────────┘
 ```
 
-<v-click>
-
 This whole trip takes about **~120ms** (round trip) — you barely notice it.
-
-</v-click>
 
 ---
 
@@ -391,14 +465,28 @@ $ traceroute google.com
 # Thanks to CDNs and edge servers nearby!
 ```
 
+---
+
+# Why Some Websites Feel Slow
+
+Not all requests are equal. Several things add up to make a page feel sluggish.
+
+<br>
+
+<v-clicks>
+
+- **Physical distance** — speed of light in fiber ≈ 200,000 km/s (fast, but not instant)
+- **Too many hops** — each router adds a small delay
+- **Congestion** — too much traffic at a router, packets queue up
+- **CDNs help!** — Content Delivery Networks put copies of data closer to you
+
+</v-clicks>
+
+<br>
+
 <v-click>
 
-### Why Some Websites Feel Slow
-
-- **Physical distance** — speed of light in fiber ≈ 200,000 km/s
-- **Too many hops** — each router adds latency
-- **Congestion** — too much traffic at a router
-- **CDNs help!** — Content Delivery Networks put copies of data closer to you
+> This is why a Korean website loads instantly in Seoul but feels slow from Europe — and vice versa.
 
 </v-click>
 
@@ -446,46 +534,73 @@ Sending                                    Receiving
 
 ---
 
-# TCP vs UDP
+# TCP — Reliable Delivery
 
-<div class="grid grid-cols-2 gap-8">
-<div>
+**Transmission Control Protocol** — the careful postal service.
 
-### TCP — Transmission Control Protocol
-**Reliable, ordered delivery**
+<br>
 
-- Three-way handshake (SYN → SYN-ACK → ACK)
-- Guarantees all data arrives
-- Guarantees correct order
-- Retransmits lost packets
-- Slower but dependable
+<v-clicks>
 
-**Used for:** Web browsing, email, file transfer, APIs
+- Three-way handshake before any data is sent (SYN → SYN-ACK → ACK)
+- Guarantees **all data arrives**
+- Guarantees **correct order**
+- Automatically **retransmits** lost packets
+- Slower, but dependable
 
-</div>
-<div>
+</v-clicks>
 
-### UDP — User Datagram Protocol
-**Fast, fire-and-forget**
-
-- No handshake
-- No guarantee of delivery
-- No guarantee of order
-- No retransmission
-- Fast and lightweight
-
-**Used for:** Video streaming, gaming, VoIP, DNS lookups
-
-</div>
-</div>
+<br>
 
 <v-click>
+
+**Used for:** Web browsing, email, file transfer, APIs — anything where missing data would be a problem.
+
+</v-click>
+
+---
+
+# UDP — Speed Over Reliability
+
+**User Datagram Protocol** — the "just throw it and hope" approach.
+
+<br>
+
+<v-clicks>
+
+- No handshake — just start sending
+- No guarantee of delivery
+- No guarantee of order
+- No retransmission of lost packets
+- **Fast** and lightweight
+
+</v-clicks>
+
+<br>
+
+<v-click>
+
+**Used for:** Video streaming, gaming, VoIP, DNS lookups — where speed matters more than perfection.
+
+</v-click>
+
+---
+
+# TCP vs UDP — When to Use Which?
 
 <br>
 
 > **Analogy:** TCP is like a phone call (connection established, back-and-forth). UDP is like shouting across a room (fast, but you might miss something).
 
-</v-click>
+<br>
+
+| | TCP | UDP |
+|---|-----|-----|
+| **Connection** | Handshake first | No handshake |
+| **Reliability** | Guaranteed delivery | Best effort |
+| **Speed** | Slower | Faster |
+| **Order** | Guaranteed | Not guaranteed |
+| **Example** | Loading this webpage | Watching a YouTube stream |
 
 ---
 
@@ -544,39 +659,40 @@ Content-Length: 4523
 
 ---
 
-# HTTP Methods & Status Codes
+# HTTP Methods (Verbs)
 
-<div class="grid grid-cols-2 gap-8">
-<div>
-
-### Methods (Verbs)
-| Method | Purpose |
-|--------|---------|
-| **GET** | Retrieve data |
-| **POST** | Submit/create data |
-| **PUT** | Update (replace) data |
-| **PATCH** | Update (partial) data |
-| **DELETE** | Remove data |
-
-</div>
-<div>
-
-### Status Codes
-| Code | Meaning |
-|------|---------|
-| **200** | OK ✅ |
-| **301** | Moved permanently ↪️ |
-| **404** | Not found 🔍 |
-| **403** | Forbidden 🚫 |
-| **500** | Server error 💥 |
-| **418** | I'm a teapot 🫖 |
-
-</div>
-</div>
-
-<v-click>
+How you tell the server **what you want to do**.
 
 <br>
+
+| Method | Purpose | Example |
+|--------|---------|---------|
+| **GET** | Retrieve data | Load a webpage |
+| **POST** | Submit/create data | Submit a signup form |
+| **PUT** | Update (replace) data | Replace your profile |
+| **PATCH** | Update (partial) data | Change just your email |
+| **DELETE** | Remove data | Delete a comment |
+
+---
+
+# HTTP Status Codes
+
+How the server tells you **what happened**.
+
+<br>
+
+| Code | Meaning | |
+|------|---------|--|
+| **200** | OK — here's what you asked for | ✅ |
+| **301** | Moved permanently — go here instead | ↪️ |
+| **403** | Forbidden — you're not allowed | 🚫 |
+| **404** | Not found — doesn't exist | 🔍 |
+| **500** | Server error — something broke on our end | 💥 |
+| **418** | I'm a teapot | 🫖 |
+
+<br>
+
+<v-click>
 
 > **418 I'm a Teapot** is a real HTTP status code from an April Fools' RFC. It means the server refuses to brew coffee because it is, in fact, a teapot.
 
@@ -598,9 +714,18 @@ With HTTPS:
               🔒 Encrypted — unreadable!
 ```
 
+<br>
+
+> 🔒 Always check for the lock icon in your browser! No lock = your data is visible to anyone on the network.
+
+---
+
+# The TLS Handshake (simplified)
+
+How your browser and the server establish a secure connection.
+
 <v-clicks>
 
-### The TLS Handshake (simplified)
 1. **Client Hello** — "I support these encryption methods"
 2. **Server Hello** — "Let's use this one. Here's my certificate."
 3. **Certificate Verify** — Client checks: "Is this certificate legit?" (via Certificate Authority)
@@ -609,9 +734,11 @@ With HTTPS:
 
 </v-clicks>
 
+<br>
+
 <v-click>
 
-> 🔒 Always check for the lock icon in your browser! No lock = your data is visible to anyone on the network.
+This all happens in milliseconds, before any webpage content is sent.
 
 </v-click>
 
