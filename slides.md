@@ -13,6 +13,7 @@ info: |
   A CodeSeoul presentation
 
   Learn more at [CodeSeoul](https://codeseoul.org)
+mdc: true
 ---
 
 # How Does the Internet Work?
@@ -156,22 +157,35 @@ How data gets from the backbone to **your device**.
 
 The Internet is networks connected to networks, all the way up.
 
+```mermaid {theme: 'dark', scale: 0.85}
+flowchart TD
+    Internet(("🌐 Internet"))
+    IXP1["IXP<br/><span style='font-size:0.7em'>Seoul</span>"]
+    IXP2["IXP<br/><span style='font-size:0.7em'>Tokyo</span>"]
+    IXP3["IXP<br/><span style='font-size:0.7em'>LA</span>"]
+    ISP1["ISP<br/>KT"]
+    ISP2["ISP<br/>SKT"]
+    ISP3["ISP<br/>NTT"]
+    ISP4["ISP<br/>AT&T"]
+    D1["🏠"]
+    D2["🏢"]
+    D3["📱"]
+    D4["🏠"]
+    Internet --- IXP1 & IXP2 & IXP3
+    IXP1 --- ISP1 & ISP2
+    IXP2 --- ISP3
+    IXP3 --- ISP4
+    ISP1 --- D1
+    ISP2 --- D2
+    ISP3 --- D3
+    ISP4 --- D4
+    style Internet fill:#4a9eff,color:#fff
+    style IXP1 fill:#f59e0b,color:#000
+    style IXP2 fill:#f59e0b,color:#000
+    style IXP3 fill:#f59e0b,color:#000
 ```
-                    🌐
-              ╱      |      ╲
-         IXP ——— IXP ——— IXP          Internet Exchange Points
-        ╱   ╲     |     ╱   ╲         where big networks meet
-      ISP   ISP  ISP  ISP   ISP       Internet Service Providers
-       |     |    |    |      |        deliver to end users
-      🏠    🏢   🏠   📱    🏠
-```
 
-<v-clicks>
-
-- **IXP** (Internet Exchange Point) — where networks swap traffic directly, e.g. **KINX in Seoul** 🇰🇷
-- **ISP** (Internet Service Provider) — KT, SKT, LG U+ connect you to the IXPs
-
-</v-clicks>
+**IXP** = Internet Exchange Point &nbsp;&nbsp; **ISP** = Internet Service Provider
 
 ---
 
@@ -243,14 +257,20 @@ Designed to solve the address shortage — with room to spare.
 
 Your home has **one public IP** visible to the Internet. But inside, each device gets a **private IP**.
 
-```
-    Your Home Network                    The Internet
-    ┌────────────────┐                  ┌──────────────┐
-    │ 📱 192.168.1.2 │                  │              │
-    │ 💻 192.168.1.3 │──► Router ──────►│  Web Server  │
-    │ 🎮 192.168.1.4 │   Public IP:     │  93.184.216.34│
-    └────────────────┘   203.0.113.5    └──────────────┘
-         Private IPs
+```mermaid {theme: 'dark', scale: 0.8}
+flowchart LR
+    subgraph home["🏠 Your Home Network"]
+        direction TB
+        Phone["📱 192.168.1.2"]
+        Laptop["💻 192.168.1.3"]
+        Console["🎮 192.168.1.4"]
+    end
+    Router{"🔀 Router<br/>Public IP:<br/>203.0.113.5"}
+    Server["🌐 Web Server<br/>93.184.216.34"]
+    home --> Router --> Server
+    style home fill:#1e3a5f,stroke:#4a9eff
+    style Router fill:#f59e0b,color:#000
+    style Server fill:#10b981,color:#000
 ```
 
 Your router uses **NAT** (Network Address Translation) to map between them.
@@ -261,19 +281,21 @@ Your router uses **NAT** (Network Address Translation) to map between them.
 
 All your devices share **one public IP** — the router keeps track of who asked for what.
 
+<br>
+
+```mermaid {theme: 'dark', scale: 0.9}
+sequenceDiagram
+    participant Phone as 📱 Phone<br/>192.168.1.3
+    participant Router as 🔀 Router<br/>203.0.113.5
+    participant Server as 🌐 Web Server
+
+    Phone->>Router: Request (port 54321)
+    Note over Router: NAT translates<br/>192.168.1.3:54321<br/>→ 203.0.113.5:54321
+    Router->>Server: Request from 203.0.113.5:54321
+    Server->>Router: Response to 203.0.113.5:54321
+    Note over Router: NAT looks up<br/>port 54321 → Phone
+    Router->>Phone: Response delivered ✅
 ```
-                    NAT translates:
-                    192.168.1.3:54321
-                    ↔ 203.0.113.5:54321
-```
-
-<v-clicks>
-
-- 📱 Phone sends a request → router tags it with a unique port number
-- 🌐 Response comes back to that port → router forwards it to the right device
-- The outside world only ever sees **203.0.113.5** — your private IPs stay hidden
-
-</v-clicks>
 
 ---
 layout: section
@@ -304,12 +326,24 @@ Without DNS, you'd have to type `185.199.108.153` into your browser every time.
 
 DNS is organized like a tree, starting from the root.
 
-```
-                    . (Root)
-                 ╱     |     ╲
-              .com   .org   .kr
-              ╱        |       ╲
-         google    codeseoul   naver
+```mermaid {theme: 'dark', scale: 0.85}
+flowchart TD
+    Root((".<br/>Root"))
+    COM[".com"]
+    ORG[".org"]
+    KR[".kr"]
+    Google["google"]
+    CS["codeseoul"]
+    Naver["naver"]
+    Root --> COM & ORG & KR
+    COM --> Google
+    ORG --> CS
+    KR --> Naver
+    style Root fill:#4a9eff,color:#fff
+    style COM fill:#f59e0b,color:#000
+    style ORG fill:#f59e0b,color:#000
+    style KR fill:#f59e0b,color:#000
+    style CS fill:#10b981,color:#000
 ```
 
 <v-clicks>
@@ -326,16 +360,23 @@ DNS is organized like a tree, starting from the root.
 
 What happens when your browser asks "What's the IP for `codeseoul.org`?"
 
-<v-clicks>
+```mermaid {theme: 'dark', scale: 0.65}
+sequenceDiagram
+    participant Browser as 🌐 Browser
+    participant Resolver as 📡 Recursive Resolver<br/>(Your ISP)
+    participant Root as 🌍 Root Server
+    participant TLD as 📁 .org Server
+    participant Auth as 📋 Authoritative<br/>Nameserver
 
-1. Browser checks its **local cache** — "Have I looked this up recently?"
-2. Asks the **recursive resolver** (usually your ISP) to find out
-3. Resolver asks a **root server** → "Try the `.org` server"
-4. Resolver asks the **.org server** → "Try this nameserver for `codeseoul.org`"
-5. Resolver asks the **authoritative nameserver** → "`185.199.108.153`"
-6. Result is **cached** so we don't repeat this every time
-
-</v-clicks>
+    Browser->>Resolver: What's the IP for codeseoul.org?
+    Resolver->>Root: Where do I find .org domains?
+    Root-->>Resolver: Try this .org server
+    Resolver->>TLD: Where is codeseoul.org?
+    TLD-->>Resolver: Try this nameserver
+    Resolver->>Auth: What's the IP for codeseoul.org?
+    Auth-->>Resolver: 185.199.108.153
+    Resolver-->>Browser: 185.199.108.153 (cached for 1 hour)
+```
 
 ---
 
@@ -391,20 +432,27 @@ layout: section
 
 You don't send a whole file at once — it gets broken into **packets**.
 
-<div class="mt-4">
-
-```
-Original message: "Hello, CodeSeoul! How's it going?"
-
-┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐
-│ Packet 1 │  │ Packet 2 │  │ Packet 3 │  │ Packet 4 │
-│ "Hello, " │  │"CodeSeoul"│  │"! How's " │  │"it going?"│
-│ Seq: 1   │  │ Seq: 2   │  │ Seq: 3   │  │ Seq: 4   │
-│ From: A  │  │ From: A  │  │ From: A  │  │ From: A  │
-│ To: B    │  │ To: B    │  │ To: B    │  │ To: B    │
-└──────────┘  └──────────┘  └──────────┘  └──────────┘
-```
-
+<div class="grid grid-cols-4 gap-3 mt-8">
+  <div class="bg-blue-500/20 border border-blue-500 rounded-lg p-3 text-center text-sm">
+    <div class="font-bold text-blue-300">Packet 1</div>
+    <div class="text-xs mt-1 opacity-80">"Hello, "</div>
+    <div class="text-xs opacity-60">Seq: 1 · From: A · To: B</div>
+  </div>
+  <div class="bg-green-500/20 border border-green-500 rounded-lg p-3 text-center text-sm">
+    <div class="font-bold text-green-300">Packet 2</div>
+    <div class="text-xs mt-1 opacity-80">"CodeSeoul"</div>
+    <div class="text-xs opacity-60">Seq: 2 · From: A · To: B</div>
+  </div>
+  <div class="bg-purple-500/20 border border-purple-500 rounded-lg p-3 text-center text-sm">
+    <div class="font-bold text-purple-300">Packet 3</div>
+    <div class="text-xs mt-1 opacity-80">"! How's "</div>
+    <div class="text-xs opacity-60">Seq: 3 · From: A · To: B</div>
+  </div>
+  <div class="bg-amber-500/20 border border-amber-500 rounded-lg p-3 text-center text-sm">
+    <div class="font-bold text-amber-300">Packet 4</div>
+    <div class="text-xs mt-1 opacity-80">"it going?"</div>
+    <div class="text-xs opacity-60">Seq: 4 · From: A · To: B</div>
+  </div>
 </div>
 
 <v-clicks>
@@ -421,28 +469,23 @@ Original message: "Hello, CodeSeoul! How's it going?"
 
 Each router looks at the **destination IP** and decides: "Where should I send this next?"
 
-```
-        📱 You (Seoul)
-         │
-    ┌────▼────┐
-    │ Router 1│ ──► "Destination is in the US..."
-    │ (KT/SKT)│
-    └────┬────┘
-         │
-    ┌────▼────┐
-    │  KINX   │ ──► "Route via Pacific submarine cable"
-    │ (Seoul) │
-    └────┬────┘
-         │ ≈ 10,000 km undersea cable
-    ┌────▼────┐
-    │ Router  │ ──► "Almost there, forward to local network"
-    │  (LA)   │
-    └────┬────┘
-         │
-    ┌────▼────┐
-    │ Server  │ ──► Destination reached!
-    │(Oregon) │
-    └─────────┘
+```mermaid {theme: 'dark', scale: 0.75}
+flowchart TD
+    You["📱 You (Seoul)"]
+    R1["🔀 Router 1 (KT/SKT)"]
+    KINX["🏢 KINX (Seoul IXP)"]
+    Cable["🌊 ≈ 10,000 km undersea cable"]
+    LA["🔀 Router (Los Angeles)"]
+    Server["🖥️ Server (Oregon)"]
+
+    You -->|"Request sent"| R1
+    R1 -->|"Destination is in the US..."| KINX
+    KINX -->|"Route via Pacific cable"| Cable
+    Cable --> LA
+    LA -->|"Forward to local network"| Server
+
+    style Cable fill:#0ea5e9,color:#fff
+    style Server fill:#10b981,color:#000
 ```
 
 This whole trip takes about **~120ms** (round trip) — you barely notice it.
@@ -516,18 +559,21 @@ Think of it like sending a physical letter ✉️
 
 <v-click>
 
-```
-Sending                                    Receiving
-┌─────────────┐                           ┌─────────────┐
-│ Application │  HTTP "GET /index.html"    │ Application │
-├─────────────┤                           ├─────────────┤
-│  Transport  │  TCP: port 443, seq #1    │  Transport  │
-├─────────────┤                           ├─────────────┤
-│  Internet   │  IP: src→dst address      │  Internet   │
-├─────────────┤                           ├─────────────┤
-│    Link     │  Ethernet/WiFi frame      │    Link     │
-└──────┬──────┘                           └──────▲──────┘
-       └──────── Physical medium ────────────────┘
+```mermaid {theme: 'dark', scale: 0.7}
+flowchart LR
+    subgraph Sending
+        A4["Application<br/><span style='font-size:0.7em'>HTTP GET /index.html</span>"]
+        A3["Transport<br/><span style='font-size:0.7em'>TCP: port 443</span>"]
+        A2["Internet<br/><span style='font-size:0.7em'>IP: src → dst</span>"]
+        A1["Link<br/><span style='font-size:0.7em'>Ethernet/WiFi</span>"]
+    end
+    subgraph Receiving
+        B1["Link"]
+        B2["Internet"]
+        B3["Transport"]
+        B4["Application"]
+    end
+    A4 --> A3 --> A2 --> A1 ~~~|"Physical medium"| B1 --> B2 --> B3 --> B4
 ```
 
 </v-click>
@@ -606,21 +652,23 @@ Sending                                    Receiving
 
 # The TCP Handshake
 
-```
-    Client                          Server
-      │                               │
-      │──── SYN (seq=100) ───────────►│  "Hey, want to talk?"
-      │                               │
-      │◄─── SYN-ACK (seq=300,ack=101)│  "Sure! I hear you."
-      │                               │
-      │──── ACK (ack=301) ───────────►│  "Great, let's go!"
-      │                               │
-      │       Connection established   │
-      │◄─────── Data exchange ────────►│
-      │                               │
-      │──── FIN ─────────────────────►│  "I'm done."
-      │◄─── ACK ──────────────────────│  "OK, bye."
-      │                               │
+```mermaid {theme: 'dark', scale: 0.8}
+sequenceDiagram
+    participant C as 💻 Client
+    participant S as 🖥️ Server
+
+    C->>S: SYN (seq=100)
+    Note right of S: "Hey, want to talk?"
+    S->>C: SYN-ACK (seq=300, ack=101)
+    Note left of C: "Sure! I hear you."
+    C->>S: ACK (ack=301)
+    Note right of S: "Great, let's go!"
+    Note over C,S: ✅ Connection established
+    C<<->>S: Data exchange
+    C->>S: FIN
+    Note right of S: "I'm done."
+    S->>C: ACK
+    Note left of C: "OK, bye."
 ```
 
 This happens every time you open a web page — in about **~1ms** on a local network.
@@ -704,15 +752,18 @@ How the server tells you **what happened**.
 
 **HTTPS** wraps HTTP in **TLS** (Transport Layer Security) encryption.
 
-```
-Without HTTPS (HTTP):
-📱 ──── "password123" ────────► 🖥️
-              👀 Anyone can read this!
-
-With HTTPS:
-📱 ──── "k8$#f!x@mQ2..." ────► 🖥️
-              🔒 Encrypted — unreadable!
-```
+<div class="grid grid-cols-2 gap-6 mt-6">
+  <div class="bg-red-500/10 border border-red-500/50 rounded-xl p-5">
+    <div class="text-red-400 font-bold mb-2">❌ Without HTTPS</div>
+    <div class="text-center text-2xl my-3">📱 → <code>"password123"</code> → 🖥️</div>
+    <div class="text-center text-sm opacity-70">👀 Anyone on the network can read this!</div>
+  </div>
+  <div class="bg-green-500/10 border border-green-500/50 rounded-xl p-5">
+    <div class="text-green-400 font-bold mb-2">✅ With HTTPS</div>
+    <div class="text-center text-2xl my-3">📱 → <code>"k8$#f!x@..."</code> → 🖥️</div>
+    <div class="text-center text-sm opacity-70">🔒 Encrypted — completely unreadable!</div>
+  </div>
+</div>
 
 <br>
 
@@ -724,17 +775,20 @@ With HTTPS:
 
 How your browser and the server establish a secure connection.
 
-<v-clicks>
+```mermaid {theme: 'dark', scale: 0.75}
+sequenceDiagram
+    participant B as 🌐 Browser
+    participant S as 🖥️ Server
 
-1. **Client Hello** — "I support these encryption methods"
-2. **Server Hello** — "Let's use this one. Here's my certificate."
-3. **Certificate Verify** — Client checks: "Is this certificate legit?" (via Certificate Authority)
-4. **Key Exchange** — Both sides generate a shared secret key
-5. **Encrypted Session** — All data is now encrypted with that key
-
-</v-clicks>
-
-<br>
+    B->>S: Client Hello
+    Note right of S: "I support these encryption methods"
+    S->>B: Server Hello + Certificate
+    Note left of B: "Let's use this one.<br/>Here's my certificate."
+    Note over B: Verify certificate<br/>via Certificate Authority ✅
+    B->>S: Key Exchange
+    Note over B,S: Both sides generate a shared secret key 🔑
+    Note over B,S: 🔒 All data is now encrypted
+```
 
 <v-click>
 
