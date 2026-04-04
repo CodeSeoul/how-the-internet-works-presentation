@@ -55,17 +55,17 @@ Let's trace the journey — starting from what you can see, all the way down to 
 
 We'll start where you are — at the browser — and go deeper, one layer at a time.
 
-<div class="mt-2">
+<div class="flex justify-center">
 
-```mermaid {theme: 'dark', scale: 0.55}
-flowchart LR
-    %%{init: {'flowchart': {'rankSpacing': 25, 'nodeSpacing': 15}}}%%
+```mermaid {theme: 'dark', scale: 0.65}
+flowchart TD
+    %%{init: {'flowchart': {'rankSpacing': 25}}}%%
     L7["<b>Browser / HTTP</b><br/><span style='font-size:0.7em'>Writing the letter</span>"]
-    L6["<b>DNS</b><br/><span style='font-size:0.7em'>Looking up<br/>the address</span>"]
-    L5["<b>TCP / UDP</b><br/><span style='font-size:0.7em'>Registered mail<br/>vs. postcard</span>"]
-    L4["<b>IP Addresses</b><br/><span style='font-size:0.7em'>The postal<br/>address</span>"]
-    L3["<b>Packets &<br/>Routing</b><br/><span style='font-size:0.7em'>Breaking into<br/>postcards</span>"]
-    L2["<b>Physical<br/>Infrastructure</b><br/><span style='font-size:0.7em'>Mail truck<br/>& roads</span>"]
+    L6["<b>DNS</b><br/><span style='font-size:0.7em'>Looking up the address</span>"]
+    L5["<b>TCP / UDP</b><br/><span style='font-size:0.7em'>Registered mail vs. postcard</span>"]
+    L4["<b>IP Addresses</b><br/><span style='font-size:0.7em'>The postal address</span>"]
+    L3["<b>Packets & Routing</b><br/><span style='font-size:0.7em'>Breaking the letter into postcards</span>"]
+    L2["<b>Physical Infrastructure</b><br/><span style='font-size:0.7em'>The mail truck & roads</span>"]
 
     L7 --> L6 --> L5 --> L4 --> L3 --> L2
 
@@ -932,17 +932,17 @@ layout: section
 
 We've traced every layer. Here's the full picture.
 
-<div class="mt-2">
+<div class="flex justify-center">
 
-```mermaid {theme: 'dark', scale: 0.55}
-flowchart LR
-    %%{init: {'flowchart': {'rankSpacing': 25, 'nodeSpacing': 15}}}%%
+```mermaid {theme: 'dark', scale: 0.65}
+flowchart TD
+    %%{init: {'flowchart': {'rankSpacing': 25}}}%%
     L7["<b>Browser / HTTP</b><br/><span style='font-size:0.7em'>Writing the letter</span>"]
-    L6["<b>DNS</b><br/><span style='font-size:0.7em'>Looking up<br/>the address</span>"]
-    L5["<b>TCP / UDP</b><br/><span style='font-size:0.7em'>Registered mail<br/>vs. postcard</span>"]
-    L4["<b>IP Addresses</b><br/><span style='font-size:0.7em'>The postal<br/>address</span>"]
-    L3["<b>Packets &<br/>Routing</b><br/><span style='font-size:0.7em'>Breaking into<br/>postcards</span>"]
-    L2["<b>Physical<br/>Infrastructure</b><br/><span style='font-size:0.7em'>Mail truck<br/>& roads</span>"]
+    L6["<b>DNS</b><br/><span style='font-size:0.7em'>Looking up the address</span>"]
+    L5["<b>TCP / UDP</b><br/><span style='font-size:0.7em'>Registered mail vs. postcard</span>"]
+    L4["<b>IP Addresses</b><br/><span style='font-size:0.7em'>The postal address</span>"]
+    L3["<b>Packets & Routing</b><br/><span style='font-size:0.7em'>Breaking the letter into postcards</span>"]
+    L2["<b>Physical Infrastructure</b><br/><span style='font-size:0.7em'>The mail truck & roads</span>"]
 
     L7 --> L6 --> L5 --> L4 --> L3 --> L2
 
