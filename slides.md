@@ -55,10 +55,11 @@ Let's trace the journey — starting from what you can see, all the way down to 
 
 We'll start where you are — at the browser — and go deeper, one layer at a time.
 
-<div class="mt-4">
+<div class="mt-2">
 
-```mermaid {theme: 'dark', scale: 0.75}
+```mermaid {theme: 'dark', scale: 0.65}
 flowchart TD
+    %%{init: {'flowchart': {'rankSpacing': 30}}}%%
     L7["<b>Browser / HTTP</b><br/><span style='font-size:0.7em'>Writing the letter</span>"]
     L6["<b>DNS</b><br/><span style='font-size:0.7em'>Looking up the address</span>"]
     L5["<b>TCP / UDP</b><br/><span style='font-size:0.7em'>Registered mail vs. postcard</span>"]
@@ -235,8 +236,9 @@ How the server tells you **what happened**.
 
 How your browser and the server establish a secure connection.
 
-```mermaid {theme: 'dark', scale: 0.75}
+```mermaid {theme: 'dark', scale: 0.7}
 sequenceDiagram
+    %%{init: {'sequence': {'noteMargin': 8, 'messageMargin': 25}}}%%
     participant B as Browser
     participant S as Server
 
@@ -454,8 +456,9 @@ TCP & UDP — registered mail vs. shouting across a room.
 
 # The TCP Handshake
 
-```mermaid {theme: 'dark', scale: 0.8}
+```mermaid {theme: 'dark', scale: 0.6}
 sequenceDiagram
+    %%{init: {'sequence': {'noteMargin': 6, 'messageMargin': 20}}}%%
     participant C as Client
     participant S as Server
 
@@ -666,9 +669,7 @@ Your router uses **NAT** (Network Address Translation) to map between them.
 
 All your devices share **one public IP** — the router keeps track of who asked for what.
 
-<br>
-
-```mermaid {theme: 'dark', scale: 0.9}
+```mermaid {theme: 'dark', scale: 0.8}
 sequenceDiagram
     participant Phone as Phone<br/>192.168.1.3
     participant Router as Router<br/>203.0.113.5
@@ -726,8 +727,9 @@ You don't send a whole file at once — it gets broken into **packets**.
 
 Each router looks at the **destination IP** and decides: "Where should I send this next?"
 
-```mermaid {theme: 'dark', scale: 0.75}
+```mermaid {theme: 'dark', scale: 0.65}
 flowchart TD
+    %%{init: {'flowchart': {'rankSpacing': 30}}}%%
     You["You (Seoul)"]
     R1["Router 1 (KT/SKT)"]
     KINX["KINX (Seoul IXP)"]
@@ -736,10 +738,10 @@ flowchart TD
     Server["Server (Oregon)"]
 
     You -->|"Request sent"| R1
-    R1 -->|"Destination is in the US..."| KINX
-    KINX -->|"Route via Pacific cable"| Cable
+    R1 -->|"Dest: US"| KINX
+    KINX -->|"Pacific cable"| Cable
     Cable --> LA
-    LA -->|"Forward to local network"| Server
+    LA -->|"Local network"| Server
 
     style Cable fill:#0ea5e9,color:#fff
     style Server fill:#10b981,color:#000
@@ -874,8 +876,9 @@ How data gets from the backbone to **your device**.
 
 The Internet is networks connected to networks, all the way up.
 
-```mermaid {theme: 'dark', scale: 0.85}
+```mermaid {theme: 'dark', scale: 0.75}
 flowchart TD
+    %%{init: {'flowchart': {'rankSpacing': 35}}}%%
     Internet(("Internet"))
     IXP1["IXP<br/><span style='font-size:0.7em'>Seoul</span>"]
     IXP2["IXP<br/><span style='font-size:0.7em'>Tokyo</span>"]
@@ -929,10 +932,11 @@ layout: section
 
 We've traced every layer. Here's the full picture.
 
-<div class="mt-4">
+<div class="mt-2">
 
-```mermaid {theme: 'dark', scale: 0.75}
+```mermaid {theme: 'dark', scale: 0.65}
 flowchart TD
+    %%{init: {'flowchart': {'rankSpacing': 30}}}%%
     L7["<b>Browser / HTTP</b><br/><span style='font-size:0.7em'>Writing the letter</span>"]
     L6["<b>DNS</b><br/><span style='font-size:0.7em'>Looking up the address</span>"]
     L5["<b>TCP / UDP</b><br/><span style='font-size:0.7em'>Registered mail vs. postcard</span>"]
