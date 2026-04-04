@@ -1086,7 +1086,7 @@ class: text-center
 <!-- Right pane -->
 <div class="flex flex-col items-center text-center gap-4">
   <div class="text-lg font-semibold">Join us on Discord!</div>
-  <img src="./discord-qr-code.png" alt="QR code for Discord server" class="h-40 rounded-lg" />
+  <img src="/discord-qr-code.png" alt="QR code for Discord server" class="h-40 rounded-lg" />
 </div>
 
 </div>
@@ -1109,11 +1109,11 @@ class: text-center
 <div class="flex items-center justify-center gap-12 mt-6">
   <div class="flex flex-col items-center gap-1">
     <div class="text-xs opacity-50">Hosted by</div>
-    <img src="./microsoft-logo.jpg" alt="Microsoft" class="h-12" />
+    <img src="/microsoft-logo.jpg" alt="Microsoft" class="h-12" />
   </div>
   <div class="flex flex-col items-center gap-1">
     <div class="text-xs opacity-50">Run by</div>
-    <img src="./logo-color-square-512.jpg" alt="CodeSeoul" class="h-12" />
+    <img src="/logo-color-square-512.jpg" alt="CodeSeoul" class="h-12" />
   </div>
 </div>
 
